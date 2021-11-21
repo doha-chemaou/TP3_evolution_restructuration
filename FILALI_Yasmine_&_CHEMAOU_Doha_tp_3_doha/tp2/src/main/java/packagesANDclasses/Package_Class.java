@@ -1,9 +1,10 @@
 package packagesANDclasses;
 
-/**
- * @author FILALI Yasmine
- * @author CHEMAOU Doha
- */
+/** Auteurs : 
+*	@author Yasmine FILALI 
+*	@author Doha CHEMAOU
+*/
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -67,7 +68,6 @@ public class Package_Class {
             if(!packages_classes.contains(package_class))
                 packages_classes.add(package_class);
         }
-        // System.out.println(packages_classes);
         return packages_classes;
     }
 

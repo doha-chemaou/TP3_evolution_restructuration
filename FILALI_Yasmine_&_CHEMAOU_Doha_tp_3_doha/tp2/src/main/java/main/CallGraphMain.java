@@ -1,4 +1,9 @@
 package main;
+/** Auteurs : 
+*	@author Yasmine FILALI 
+*	@author Doha CHEMAOU
+*/
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,13 +12,11 @@ import java.text.ParseException;
 import java.util.Scanner;
 
 import graphs.CallGraph;
-// import graphs.CallGraph2;
-// import graphs.CouplingGraph;
 import graphs.StaticCallGraph;
 import metrics.*;
+import clusters.*;
 
 import processors.ASTProcessor;
-import parsers.Parser;
 public class CallGraphMain extends AbstractMain {
 
 	@Override
@@ -24,6 +27,8 @@ public class CallGraphMain extends AbstractMain {
 		builder.append("\n\t\t|2. Métrique de couplage entre chaque deux classes                          |");
 		builder.append("\n\t\t|3. Métrique de couplage pour deux classes spécifiques                      |");
 		builder.append("\n\t\t|4. Générez un graphe de couplage pondéré entre les classes de l'application|");
+		builder.append("\n\t\t|5. regroupement hiérarchique (clustering)                                  |");
+		builder.append("\n\t\t|6. identification de groupe de classes couplées                            |");
 		builder.append("\n\t\t|" + QUIT + ". To quit                                                                 |");
 		builder.append("\n\t\t ---------------------------------------------------------------------------");
 
@@ -41,7 +46,6 @@ public class CallGraphMain extends AbstractMain {
 			else
 				verifyTestProjectPath(inputReader, args[0]);
 			String userInput = "";
-			// System.out.println(Metrique.listJavaFiles(TEST_PROJECT_PATH));
 			do {
 				main.menu();
 				userInput = inputReader.readLine();
@@ -60,7 +64,6 @@ public class CallGraphMain extends AbstractMain {
 
 	protected void processUserInput(String userInput, ASTProcessor processor) throws ParseException {
 		CallGraph callGraph = (CallGraph) processor;
-		// CallGraph2 callGraph2 = (CallGraph2) processor;
 		Scanner sc = new Scanner(System.in);
 		try {
 			callGraph = StaticCallGraph.createCallGraph(TEST_PROJECT_PATH);
@@ -75,25 +78,30 @@ public class CallGraphMain extends AbstractMain {
 				break;
 			}
 			case "3": {
-				
 				Metrique.metrique_between_two_specific_classes(sc,callGraph);
 				break;
 			}
 
-			case "4":
+			case "4":{
 				Graph.dotGraph(callGraph);
-				
 				break;
+			}
 
-			case "5":
+			case "5":{
+				Clustering.clustering(callGraph);
 				return;
+			}
+			case "6":{
+
+				return;
+			}
 
 			case QUIT:
 				System.out.println("Bye...");
 				return;
 
 			default:
-				System.err.println("Sorry, wrong input. Please try again.");
+				System.err.println("\u001B[31mSorry, wrong input. Please try again.\u001B[0m");
 				return;
 			}
 		} catch (IOException e) {

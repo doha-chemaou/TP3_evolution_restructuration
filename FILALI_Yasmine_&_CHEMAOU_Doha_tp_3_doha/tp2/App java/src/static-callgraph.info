@@ -1,0 +1,43 @@
+ -----------------
+|[35mStatic Call Graph[0m|
+ -----------------
+
+[35mMethods: [0m20.
+[35mInvocations: [0m22.
+
+behavioral.visitor.TaxVisitor::visit[36m:[0m
+	[94m---> [0mbehavioral.visitor.TaxVisitor::computeTax (3 time(s))
+
+behavioral.visitor.Liquor::accept[36m:[0m
+	[94m---> [0mbehavioral.visitor.Visitor::visit (1 time(s))
+
+behavioral.visitor.Test::computeTaxForProducts[36m:[0m
+	[94m---> [0mbehavioral.visitor.Product::accept (1 time(s))
+	[94m---> [0mSystem.out::println (1 time(s))
+	[94m---> [0mbehavioral.visitor.TaxVisitor::getComputedTax (1 time(s))
+
+behavioral.visitor.Necessity::accept[36m:[0m
+	[94m---> [0mbehavioral.visitor.Visitor::visit (1 time(s))
+
+behavioral.visitor.TaxHolidayVisitor::visit[36m:[0m
+	[94m---> [0mbehavioral.visitor.TaxHolidayVisitor::computeTax (2 time(s))
+
+behavioral.visitor.Product::Product[36m:[0m
+	[94m---> [0mbehavioral.visitor.Product::setName (1 time(s))
+	[94m---> [0mbehavioral.visitor.Product::setPrice (1 time(s))
+
+behavioral.visitor.TaxVisitor::computeTax[36m:[0m
+	[94m---> [0mbehavioral.visitor.Product::getClass (1 time(s))
+	[94m---> [0mSystem.out::println (1 time(s))
+	[94m---> [0mproduct.getClass()::getSimpleName (1 time(s))
+	[94m---> [0mbehavioral.visitor.Product::getPrice (1 time(s))
+
+behavioral.visitor.Tobacco::accept[36m:[0m
+	[94m---> [0mbehavioral.visitor.Visitor::visit (1 time(s))
+
+behavioral.visitor.Test::main[36m:[0m
+	[94m---> [0mbehavioral.visitor.Test::computeTaxForProducts (2 time(s))
+	[94m---> [0mArrays::asList (1 time(s))
+	[94m---> [0mSystem.out::println (2 time(s))
+
+
