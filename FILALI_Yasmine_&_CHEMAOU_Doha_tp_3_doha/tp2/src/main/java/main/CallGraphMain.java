@@ -15,6 +15,7 @@ import graphs.CallGraph;
 import graphs.StaticCallGraph;
 import metrics.*;
 import clusters.*;
+import partition.*;
 
 import processors.ASTProcessor;
 public class CallGraphMain extends AbstractMain {
@@ -92,7 +93,7 @@ public class CallGraphMain extends AbstractMain {
 				return;
 			}
 			case "6":{
-
+				Partition.partition(callGraph);
 				return;
 			}
 

@@ -1,0 +1,33 @@
+digraph G{
+edge [dir=none]
+graph [fontsize=10 fontname="Verdana"]
+node [shape=record fontsize=10 fontname="Verdana"]
+
+subgraph cluster_0{
+node1 [style = filled, color = chartreuse, label=Test, shape = rectangle]
+node2 [color = chartreuse, label="0.143", shape = rectangle]
+node2 -> node1
+node2 -> node5
+node3 [style = filled, color = chartreuse, label=TaxVisitor, shape = rectangle]
+node4 [style = filled, color = chartreuse, label=Product, shape = rectangle]
+node5 [color = chartreuse, label="0.286", shape = rectangle]
+node5 -> node3
+node5 -> node4
+}
+subgraph cluster_1{
+node6 [style = filled, color = chartreuse, label=Liquor, shape = rectangle]
+node7 [color = chartreuse, label="0.143", shape = rectangle]
+node7 -> node6
+node7 -> node9
+node8 [style = filled, color = chartreuse, label=Tobacco, shape = rectangle]
+node9 [color = chartreuse, label="0.143", shape = rectangle]
+node9 -> node8
+node9 -> node12
+node10 [style = filled, color = chartreuse, label=Necessity, shape = rectangle]
+node11 [style = filled, color = chartreuse, label=Visitor, shape = rectangle]
+node12 [color = chartreuse, label="0.143", shape = rectangle]
+node12 -> node10
+node12 -> node11
+}
+}
+}

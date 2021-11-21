@@ -1,4 +1,5 @@
 digraph G{
+edge [dir=none]
 node1 [style = filled, color = mediumorchid2, label=Test, shape = rectangle]
 node2 [color = mediumorchid2, label="0.143", shape = rectangle]
 node2 -> node1

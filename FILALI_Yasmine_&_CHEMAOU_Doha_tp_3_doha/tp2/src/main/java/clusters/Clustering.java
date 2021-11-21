@@ -20,7 +20,6 @@ import java.util.Map;
 
 import graphs.CallGraph;
 import metrics.*;
-import packagesANDclasses.Package_Class;
 
 public class Clustering {
     static LinkedHashMap<String,Double> metrique = new LinkedHashMap<>();
@@ -29,18 +28,26 @@ public class Clustering {
     static List<Map.Entry<String, Integer> > list;
     static List liste = new ArrayList<>();
     static List<String> taken = new ArrayList<>();
-    static List respective_weights = new ArrayList<>();
+    public static List respective_weights = new ArrayList<>();
     static List lolo = new ArrayList<>();
-    static String body = "";
+    public static String body = "";
     static List to_complete_clustering = new ArrayList<>();
     static List to_complete_clustering_nodes = new ArrayList<>();
-
+    public static List<Object> together = new ArrayList<>();
+    // public static BufferedWriter out;
     static int index_ = 1;
     public static LinkedHashMap<String,Double> sorted_metrique(CallGraph callGraph) throws IOException, ParseException{
 
         Metrique.numOfCallsBetweenCallerAndCalle(callGraph);
         Metrique.metrique_couplage();
         metrique=new LinkedHashMap<>(Metrique.getMetrique());
+        // metrique.put("A ---> B",14.0) ;
+        // metrique.put("C ---> D",13.0) ;
+        // metrique.put("E ---> B",11.0) ;
+        // metrique.put("C ---> F",10.0) ;
+        // metrique.put("D ---> G",15.0) ;
+        // metrique.put("H ---> B",9.0) ;
+
         // metrique.put("A ---> B",14.0) ;
         // metrique.put("C ---> D",13.0) ;
         // metrique.put("D ---> C",12.0) ;
@@ -84,11 +91,11 @@ public class Clustering {
         }
     }
 
-    public static void clustering(CallGraph callGraph) throws ParseException, IOException{
+    public static void clustering_(CallGraph callGraph) throws ParseException, IOException{
         metrique = sorted_metrique(callGraph);
         taken = new ArrayList<>();
 
-        List<Object> together = new ArrayList<>();
+        together = new ArrayList<>();
         respective_weights = new ArrayList<>();
         lolo = new ArrayList<>();
         for(String key : metrique.keySet()){
@@ -130,157 +137,70 @@ public class Clustering {
                 }
             }
         }
+        // to_dot(together);
+    }
+    public static void clustering(CallGraph callGraph) throws ParseException, IOException{
+        clustering_(callGraph);
         to_dot(together);
     }
 
     public static void contains__(List<Object> l,String class_name_a,String class_name_b, int browser, List<Object> the_list,int browser_){
-        // System.out.println("class_name A puis B ::::::::::::"+class_name_a + " "+class_name_b);
-        // System.out.println("l and l_size and browser:::::::::::: "+l +" "+ l.size()+" "+browser);
-        // System.out.println("l.get(browser)::::::::::::: "+l.get(browser));
-        // System.out.println("the_list and its_size and browser_"+the_list +" "+ the_list.size()+" "+browser_);
-        // System.out.println("-----------------------------------");
         
         if(browser == l.size()) return ;//new ArrayList<>();
         else{
-            // System.out.println("-----------------------------------");
             if(l.get(browser) instanceof List){
-                // System.out.println("____________________________");
-                // System.out.println(((List<Object>) l.get(browser)).contains(class_name_a) && !((List<Object>) l.get(browser)).contains(class_name_b));
-                // System.out.println(is_there(class_name_b ,(List<Object>) the_list, 0)+ " "+class_name_b);
-                // System.out.println(l.get(browser));
-                
-                // if(!((List<Object>) l.get(browser)).contains(class_name_a) && ((List<Object>) l.get(browser)).contains(class_name_b)){
-                // if(!((List<Object>) l.get(browser)).contains(class_name_a) && ((List<Object>) l.get(browser)).contains(class_name_b)){
                 if(!is_there(class_name_a,((List<Object>) l.get(browser)),0) && is_there(class_name_b,((List<Object>) l.get(browser)),0)){
-
-                    List<Object> l_ = new ArrayList<>();
-                    l_.add(class_name_a);
-                    // System.out.println("the_list "+the_list);
-                    // System.out.println("l "+l);
-                    // System.out.println("before the adding l "+l);
-                    // System.out.println("before the adding the_list "+the_list);
-                    if(l == the_list)
-                        l_.add(the_list.get(browser));
-                    else l_.add(the_list);
-                    // List previsous_respective_weights = respective_weights;
-                    // respective_weights = new ArrayList<>();
-                    lolo = new ArrayList<>();
-                    // System.out.println(class_name_a+ " "+ class_name_b);
-                    // System.out.println(metrique.get(class_name_a+" ---> "+class_name_b));
-                    lolo.add(metrique.get(class_name_a+" ---> "+class_name_b));
-                    // lolo.add(previsous_respective_weights);
-                    // respective_weights.add(lolo);
-                    // respective_weights.add(previsous_respective_weights);
-
-                    taken.add(class_name_a);
-                    liste = l_;
-                    // System.out.println("====================== liste a "+liste);
-                    // System.out.println("1,,,,,,,,,,,,,,,,,,,,,,, "+browser);
-                    // System.out.println("l "+l_);
-                    return ;//l_;
-                }
-                else{
-                    /*System.out.println(!((List<Object>) l.get(browser)).contains(class_name_a) && ((List<Object>) l.get(browser)).contains(class_name_b));
-                    if(((List<Object>) l.get(browser)).contains(class_name_b) && !((List<Object>) l.get(browser)).contains(class_name_a)){
-                    // System.out.println("{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{'");
+                    if(!taken.contains(class_name_a)){
                         List<Object> l_ = new ArrayList<>();
                         l_.add(class_name_a);
-                        // System.out.println("the_list "+the_list);
-                        // System.out.println("l "+l);
-                        l_.add(the_list.get(browser));
+                        if(l == the_list)
+                            l_.add(the_list.get(browser));
+                        else l_.add(the_list);
+                        lolo = new ArrayList<>();
+                        lolo.add(metrique.get(class_name_a+" ---> "+class_name_b));
+
                         taken.add(class_name_a);
-                        // System.out.println("l_result "+l_);
                         liste = l_;
-                        // System.out.println("2,,,,,,,,,,,,,,,,,,,,,,, "+browser);
-                        System.out.println("====================== liste b "+liste);
                         return ;//l_;
-                    }
-                    else{*/
-                        // System.out.println("]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]");
-                        // System.out.println("yogi ,yogiiiiiiiiiiiiiiiiii "+((List<Object>)l.get(browser)).get(1));
-                        // if(((List<Object>)l.get(browser)).get(1) instanceof List){
-                            // contains((List<Object>)l.get(browser),class_name_a,class_name_b,0);
-                        // System.out.println("3,,,,,,,,,,,,,,,,,,,,,,, "+browser);
+                }
+            }
+                else{
                         if(((List<Object>)l.get(browser)).get(1) instanceof List){
-                            // System.out.println("show l "+l.get(browser));
-                            // System.out.println("4,,,,,,,,,,,,,,,,,,,,,,, "+browser);
-                            // contains__((List<Object>)(((List<Object>)l.get(browser)).get(1)),class_name_a,class_name_b,0,(List<Object>)l.get(browser),browser_+1);
-                            // contains__((List<Object>)(((List<Object>)l.get(browser))),class_name_a,class_name_b,0,(List<Object>)l.get(browser),browser_+1);
                             contains__((List<Object>)(((List<Object>)l.get(browser))),class_name_a,class_name_b,0,(List<Object>)l.get(browser),browser_+1);
 
                         }
-                            //((List<Object>)l.get(browser)).get(1)
-                        // }
-                        // System.out.println("??????????????????????????");
-                        // System.out.println("5,,,,,,,,,,,,,,,,,,,,,,, "+browser);
-                        // System.out.println("l "+l);
-                        // System.out.println("??????????????????????????");
-                        // on passe au prochain de la liste de départ 
                         if(browser+1 < l.size()){
                             contains__(l,class_name_a,class_name_b,browser+1,l,browser_);
                         }
                        
-                    // }
                 }
                 
             }  
             else{
-                // System.out.println("yees "+l);
                 if(l instanceof List && !(l.get(browser) instanceof List)){
-                    // System.out.println("l "+(!l.contains(class_name_a) && l.contains(class_name_b))+ " "+l);
-                    // System.out.println("the_list "+(!the_list.contains(class_name_a) && the_list.contains(class_name_b)) + " "+ the_list);
-                    // System.out.println(class_name_a+" "+ class_name_b);
-                    // System.out.println("is_there the_list "+(!is_there(class_name_a,the_list,0) && is_there(class_name_b,the_list,0)) + " "+ the_list);
-                    // System.out.println(!the_list.contains(class_name_a) && the_list.contains(class_name_b));
-                    // if(!l.contains(class_name_a) && l.contains(class_name_b)){
                     if(!is_there(class_name_a,the_list,0) && is_there(class_name_b,the_list,0)){
-                        // System.out.println("hey hey hey   " + l);
-
-                        List<Object> l_ = new ArrayList<>();
-                        l_.add(class_name_a);
-                        l_.add(the_list);
-                        taken.add(class_name_a);
-                        liste = l_;
-                        // List previsous_respective_weights = respective_weights;
-                        // respective_weights = new ArrayList<>();
-                        lolo = new ArrayList<>();
-                        // System.out.println(class_name_a+ " "+ class_name_b);
-
-                        // System.out.println(metrique.get(class_name_a+" ---> "+class_name_b));
-                        lolo.add(metrique.get(class_name_a+" ---> "+class_name_b));
-                        // lolo.add(previsous_respective_weights);
-                        // respective_weights.add(lolo);
-                        // respective_weights.add(previsous_respective_weights);
-                        // System.out.println("++++++++++++++++++++++++++ liste a "+liste);
-                        return ;//l_;
+                        if(!taken.contains(class_name_a)){
+                            List<Object> l_ = new ArrayList<>();
+                            l_.add(class_name_a);
+                            l_.add(the_list);
+                            taken.add(class_name_a);
+                            liste = l_;
+                            lolo = new ArrayList<>();
+                            lolo.add(metrique.get(class_name_a+" ---> "+class_name_b));
+                            return ;//l_;
                     }
-                
+                }
                 else{
-                    /*if(l.contains(class_name_b) && !l.contains(class_name_a)){
-                    List<Object> l_ = new ArrayList<>();
-                    l_.add(class_name_a);
-                    l_.add(the_list);
-                    taken.add(class_name_a);
-                    liste = l_;
-                    System.out.println("++++++++++++++++++++++++++ liste b "+liste);
-                    return ;//l_;
-                    }
-                    else{*/
                         if(browser+1<the_list.size() && the_list.get(browser+1) instanceof List){
-                            // System.out.println("6,,,,,,,,,,,,,,,,,,,,,,, "+browser);
-                            // System.out.println("laaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                             contains__((List<Object>) l.get(browser+1),class_name_a,class_name_b,browser+1,l,browser_+1);
                         }
-                    // }
                 }
                 }
-                // System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+l);
             
         }
                 
             
         }
-        // return new ArrayList<>();
         
     }
    
@@ -309,22 +229,25 @@ public class Clustering {
         // just to test the method , delete that to get the previous result 
 
         if(!together.isEmpty() && !respective_weights.isEmpty()){
-            String graph = "graph%7B";
             body = "";
             try(BufferedWriter out=new BufferedWriter(new OutputStreamWriter(new FileOutputStream("dot_clustering.dot")))){
-                out.write("digraph G{"); 
+                out.write("digraph G{\nedge [dir=none]"); 
                 out.newLine();
                 index_=1;
                 to_complete_clustering = new ArrayList<>();
                 to_complete_clustering_nodes = new ArrayList<>();
                 dot_dot(together, respective_weights, 0 , 1,(List)together.get(0),(List)respective_weights.get(0),false);
-            
+                // System.out.println("complete clustering "+to_complete_clustering);
+                // System.out.println("complete clustering nodes "+to_complete_clustering_nodes);
+
                 finalize_dot();
                 out.write(body); 
                 out.write("}");
 
                 Process process = Runtime.getRuntime().exec("dot dot_clustering.dot -Tpng -o png_clustring.png",null);
+                out.close();
                 }
+
             }
         }
         static public void dot_dot(List together ,List respect_weights, int browser, int index,List current_list,List current_resp, Boolean passage) throws IOException{
@@ -337,7 +260,11 @@ public class Clustering {
                     body+="node"+(index+2)+" [color = mediumorchid2, label=\""+((List<Object>)current_resp).get(0)+"\", shape = rectangle]\n";
                     body+="node"+(index+2)+" -> node"+index+"\n";
                     body+="node"+(index+2)+" -> node"+(index+1)+"\n";
-
+                    if(!passage){
+                        to_complete_clustering.add(((List<Object>)current_resp).get(0));
+                        // System.out.println("node"+(index+2));
+                        to_complete_clustering_nodes.add("node"+(index+2));
+                    } 
                     if(browser+1 < together.size())
                         dot_dot(together, respect_weights, browser+1,index+3,(List)together.get(browser+1),(List)respect_weights.get(browser+1),false);
                     else 
