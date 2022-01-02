@@ -1,0 +1,5 @@
+graph G{ 
+Product--TaxVisitor [ label="2,000 (2/4)" ] 
+Product--Test [ label="1,000 (1/4)" ] 
+TaxVisitor--Test [ label="1,000 (1/4)" ] 
+}

@@ -1,0 +1,7 @@
+{[TaxHolidayVisitor]=0, [Tobacco]=0, [Test]=0, [Product]=0, [Necessity]=0, [TaxVisitor]=0, [Liquor]=0}
+{[Product, TaxVisitor]=2, [TaxHolidayVisitor]=0, [Tobacco]=0, [Test]=0, [Necessity]=0, [Liquor]=0}
+{[Product, TaxVisitor, Liquor]=0, [TaxHolidayVisitor]=0, [Tobacco]=0, [Test]=0, [Necessity]=0}
+{[Product, TaxVisitor, Liquor, Necessity]=0, [TaxHolidayVisitor]=0, [Tobacco]=0, [Test]=0}
+{[TaxHolidayVisitor]=0, [Tobacco]=0, [Product, TaxVisitor, Liquor, Necessity, Test]=2}
+{[TaxHolidayVisitor]=0, [Tobacco, Product, TaxVisitor, Liquor, Necessity, Test]=0}
+{[TaxHolidayVisitor, Tobacco, Product, TaxVisitor, Liquor, Necessity, Test]=0}

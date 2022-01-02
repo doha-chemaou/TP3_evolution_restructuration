@@ -1,0 +1,15 @@
+graph G{ 
+node0[style = filled,color = chartreuse, label=Product, shape = rectangle]
+node0 -- node1
+node1 -- node3
+node2[style = filled,color = chartreuse, label=TaxVisitor, shape = rectangle]
+node2 -- node1
+node4[style = filled,color = chartreuse, label=Liquor, shape = rectangle]
+node4 -- node3
+node3 -- node5
+node6[style = filled,color = chartreuse, label=Necessity, shape = rectangle]
+node6 -- node5
+node5  -- 2
+node8[style = filled,color = chartreuse, label=Test, shape = rectangle]
+node8  -- 2
+}
